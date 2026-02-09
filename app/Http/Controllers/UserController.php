@@ -20,13 +20,15 @@ class UserController extends Controller
     {
         $roles = $this->getAllRoles();
         $users = User::with('role')->orderBy('name')->get();
-        return view('users.index', compact('users','roles'));
+        return view('users.index', compact('users', 'roles'));
     }
 
     public function show(User $user)
     {
+        $user->load('versionings.project'); 
         return view('users.show', compact('user'));
     }
+
 
     public function create()
     {
