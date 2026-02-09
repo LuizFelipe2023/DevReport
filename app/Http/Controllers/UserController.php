@@ -18,8 +18,9 @@ class UserController extends Controller
 
     public function index()
     {
+        $roles = $this->getAllRoles();
         $users = User::with('role')->orderBy('name')->get();
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users','roles'));
     }
 
     public function show(User $user)

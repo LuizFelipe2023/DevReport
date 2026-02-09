@@ -6,10 +6,15 @@ use App\Http\Requests\VersioningRequest;
 use App\Models\Project;
 use App\Models\Versioning;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class VersioningController extends Controller
 {
 
+       private function getAllUsers()
+       {
+               return User::orderBy('name')->get();
+       }
        private function getAllProjects()
        {
               return Project::orderBy('name')->get();
@@ -18,7 +23,8 @@ class VersioningController extends Controller
        public function index()
        {
               $versionings = Versioning::with('project')->get();
-              return view('versionings.index', compact('versionings'));
+              $users = $this->getAllUsers();
+              return view('versionings.index', compact('versionings','users'));
        }
 
        public function show(Versioning $versioning)
@@ -28,8 +34,9 @@ class VersioningController extends Controller
 
        public function create()
        {
+              $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.create', compact('projects'));
+              return view('versionings.create', compact('projects','users'));
        }
 
        public function store(VersioningRequest $request)
@@ -46,8 +53,9 @@ class VersioningController extends Controller
 
        public function edit(Versioning $versioning)
        {
+              $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.edit', compact('versioning', 'projects'));
+              return view('versionings.edit', compact('versioning', 'projects','users'));
        }
 
        public function update(VersioningRequest $request, Versioning $versioning)

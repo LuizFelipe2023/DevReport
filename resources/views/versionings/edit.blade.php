@@ -59,7 +59,7 @@
                                 <div class="col-md-8 mb-4">
                                     <label class="form-label">Responsáveis</label>
                                     <select name="users[]" id="users-select" class="form-control" multiple>
-                                        @foreach(\App\Models\User::all() as $user)
+                                        @foreach($users as $user)
                                             <option value="{{ $user->id }}" {{ $versioning->users->contains($user->id) ? 'selected' : '' }}>
                                                 {{ $user->name }}
                                             </option>

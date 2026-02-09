@@ -13,9 +13,9 @@
     </div>
 
     <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
+        <div class="card-body p-3">
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table id="projectsTable" class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
                             <th class="ps-4">Nome do Projeto</th>
@@ -58,7 +58,7 @@
                                 </div>
                             </td>
 
-                          
+                        
                             <div class="modal fade" id="deleteModal{{ $project->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content border-0 shadow">
@@ -88,4 +88,9 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
+<script src="{{ asset('js/jquery/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/datatables/dataTables.min.js') }}"></script>
+<script src="{{ asset('js/tables/projects.js') }}"></script>
 @endsection
+
