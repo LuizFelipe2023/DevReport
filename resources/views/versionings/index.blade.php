@@ -106,7 +106,7 @@
                                 <td class="ps-4">
                                     <span class="badge bg-primary px-3 py-2">v{{ $v->version_number }}</span>
                                 </td>
-                                <td class="fw-semibold">{{ $v->status->nome }}</td>
+                                <td class="fw-semibold">{{ $v->status->name}}</td>
                                 <td class="fw-semibold">{{ $v->project->name }}</td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-1">
