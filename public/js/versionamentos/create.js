@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
-
-    const releaseDateInput = document.getElementById('release_date');
+document.addEventListener('DOMContentLoaded', function() {
+    const releaseDateInput = document.querySelector('#release_date');
 
     if (releaseDateInput && typeof flatpickr !== 'undefined') {
         flatpickr(releaseDateInput, {
-            dateFormat: "d/m/Y",
+            altInput: true,              
+            altFormat: "d/m/Y",           
+            dateFormat: "Y-m-d",         
+            
             locale: "pt",
             allowInput: true,
             disableMobile: true,
@@ -13,15 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
             position: "auto",
             theme: "light",
             static: true,
-            wrap: false,
             clickOpens: true,
-            time_24hr: true,
-            defaultDate: releaseDateInput.value || null,
-            parseDate: (datestr, format) => {
-                return flatpickr.parseDate(datestr, format);
-            }
+            defaultDate: releaseDateInput.value || null, 
         });
     }
+
     const element = document.querySelector('#users-select');
     if (element) {
         new Choices(element, {

@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     
     if (releaseDateInput && typeof flatpickr !== 'undefined') {
         flatpickr(releaseDateInput, {
-            dateFormat: "d/m/Y",
+            altInput: true,               
+            altFormat: "d/m/Y",           
+            dateFormat: "Y-m-d",           
             locale: "pt", 
             allowInput: true,
             disableMobile: true,
