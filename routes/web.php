@@ -12,11 +12,16 @@ Route::get('/', function () {
 });
 
 Route::resource('projects', ProjectController::class)->middleware(['auth']);
-Route::resource('versionings', VersioningController::class)->middleware(['auth']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('versionings/pdf', [VersioningController::class, 'generatePdf'])->name('versionings.pdf');
+    Route::resource('versionings', VersioningController::class);
+});
 
 Route::resource('users', UserController::class)
     ->middleware(isAdmin::class)
     ->except(['show']);
+
 Route::get('users/{user}', [UserController::class, 'show'])
     ->middleware('auth')
     ->name('users.show');

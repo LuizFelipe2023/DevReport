@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VersioningRequest;
 use App\Models\Project;
 use App\Models\Versioning;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -13,7 +14,7 @@ class VersioningController extends Controller
 
        private function getAllUsers()
        {
-               return User::orderBy('name')->get();
+              return User::orderBy('name')->get();
        }
        private function getAllProjects()
        {
@@ -24,7 +25,7 @@ class VersioningController extends Controller
        {
               $versionings = Versioning::with('project')->get();
               $users = $this->getAllUsers();
-              return view('versionings.index', compact('versionings','users'));
+              return view('versionings.index', compact('versionings', 'users'));
        }
 
        public function show(Versioning $versioning)
@@ -36,7 +37,7 @@ class VersioningController extends Controller
        {
               $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.create', compact('projects','users'));
+              return view('versionings.create', compact('projects', 'users'));
        }
 
        public function store(VersioningRequest $request)
@@ -55,7 +56,7 @@ class VersioningController extends Controller
        {
               $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.edit', compact('versioning', 'projects','users'));
+              return view('versionings.edit', compact('versioning', 'projects', 'users'));
        }
 
        public function update(VersioningRequest $request, Versioning $versioning)
@@ -75,5 +76,16 @@ class VersioningController extends Controller
        {
               $versioning->delete();
               return redirect()->route('versionings.index')->with('success', 'Versioning deleted successfully');
+       }
+
+       public function generatePdf()
+       {
+              $versioningsGrouped = Versioning::with(['project', 'users'])
+                     ->get()
+                     ->groupBy('project_id');
+
+              $pdf = Pdf::loadView('versionings.pdfVersionings', compact('versioningsGrouped'));
+
+              return $pdf->download('relatorio_versoes_por_projeto.pdf');
        }
 }

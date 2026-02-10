@@ -38,7 +38,7 @@
                                     <label class="form-label">Status</label>
                                     <select name="status" class="form-select @error('status') is-invalid @enderror"
                                         required>
-                                        <option value="development">Em Desenvolvimento</option>
+                                        <option value="development">Desenvolvimento</option>
                                         <option value="pending">Pendente</option>
                                         <option value="completed">Finalizado</option>
                                         <option value="production">Produção</option>

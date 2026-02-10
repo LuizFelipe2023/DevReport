@@ -48,9 +48,9 @@
                                 <label for="status" class="form-label fw-semibold small text-uppercase">Status Inicial</label>
                                 <select name="status" id="status" class="form-select bg-light @error('status') is-invalid @enderror" required>
                                     <option value="" selected disabled>Escolha um status...</option>
-                                    <option value="development" {{ old('status') == 'development' ? 'selected' : '' }}>🚀 Em Desenvolvimento</option>
-                                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>✅ Concluído</option>
-                                    <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>📦 Arquivado</option>
+                                    <option value="development" {{ old('status') == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
+                                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Concluído</option>
+                                    <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Arquivado</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>

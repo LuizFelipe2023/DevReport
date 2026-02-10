@@ -39,9 +39,9 @@
                                     <label class="form-label">Status</label>
                                     <select name="status" class="form-select @error('status') is-invalid @enderror"
                                         required>
-                                        <option value="development" {{ old('status', $versioning->status) == 'development' ? 'selected' : '' }}>Em Desenvolvimento</option>
+                                        <option value="development" {{ old('status', $versioning->status) == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
                                         <option value="pending" {{ old('status', $versioning->status) == 'pending' ? 'selected' : '' }}>Pendente</option>
-                                        <option value="completed" {{ old('status', $versioning->status) == 'completed' ? 'selected' : '' }}>Finalizado</option>
+                                        <option value="completed" {{ old('status', $versioning->status) == 'completed' ? 'selected' : '' }}>Concluído</option>
                                         <option value="production" {{ old('status', $versioning->status) == 'production' ? 'selected' : '' }}>Produção</option>
                                         <option value="archived" {{ old('status', $versioning->status) == 'archived' ? 'selected' : '' }}>Arquivado</option>
                                     </select>

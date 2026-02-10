@@ -53,9 +53,9 @@
                             <div class="col-md-5 mb-4">
                                 <label for="status" class="form-label fw-semibold small text-uppercase text-muted">Status Atual</label>
                                 <select name="status" id="status" class="form-select bg-light fw-medium @error('status') is-invalid @enderror" required>
-                                    <option value="development" {{ old('status', $project->status) == 'development' ? 'selected' : '' }}>🚀 Development</option>
-                                    <option value="completed" {{ old('status', $project->status) == 'completed' ? 'selected' : '' }}>✅ Completed</option>
-                                    <option value="archived" {{ old('status', $project->status) == 'archived' ? 'selected' : '' }}>📦 Archived</option>
+                                    <option value="development" {{ old('status', $project->status) == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
+                                    <option value="completed" {{ old('status', $project->status) == 'completed' ? 'selected' : '' }}>Concluído</option>
+                                    <option value="archived" {{ old('status', $project->status) == 'archived' ? 'selected' : '' }}>Arquivado</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
