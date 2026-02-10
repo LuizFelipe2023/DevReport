@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     $('#userFilter').on('change', function() {
         var user = $(this).val();
-        table.column(2).search(user).draw();
+        table.column(3).search(user).draw();
     });
 
     $('#statusFilter').on('change', function() {
