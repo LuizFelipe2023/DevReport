@@ -29,7 +29,7 @@ class VersioningController extends Controller
        public function index()
        {
               $statuses = $this->getAllStatuses();
-              $versionings = Versioning::with('project')->get();
+              $versionings = Versioning::with(['status','project'])->get();
               $users = $this->getAllUsers();
               return view('versionings.index', compact('versionings', 'users','statuses'));
        }
