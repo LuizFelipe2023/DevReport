@@ -47,7 +47,6 @@
         }
         .project-name { font-size: 14px; font-weight: bold; color: #1a2a3a; }
 
-        /* Tabela */
         table { 
             width: 100%; 
             border-collapse: collapse; 
