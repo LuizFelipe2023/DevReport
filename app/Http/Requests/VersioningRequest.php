@@ -28,6 +28,8 @@ class VersioningRequest extends FormRequest
             'release_date' => 'nullable|date',
             'users' => 'nullable|array',
             'users.*' => 'exists:users,id', 
+            'documents'      => 'nullable|array',
+            'documents.*'    => 'file|mimes:pdf,doc,docx,zip,png,jpg|max:10240',
         ];
     }
 }

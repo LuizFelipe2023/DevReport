@@ -7,6 +7,10 @@ use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\DocumentController;
+
+Route::get('/documents/{document}/download', [DocumentController::class, 'download'])->name('documents.download');
+
 Route::get('/', function () {
     return Auth::check() ? redirect()->route('versionings.index') : redirect()->route('login');
 });

@@ -18,9 +18,14 @@ class Versioning extends Model
             return $this->belongsToMany(User::class, 'user_versioning');
       }
 
-       public function status()
-       {
-              return $this->belongsTo(Status::class,'status_id');
-       }
+      public function status()
+      {
+            return $this->belongsTo(Status::class, 'status_id');
+      }
+
+      public function documents()
+      {
+            return $this->hasMany(Document::class);
+      }
 
 }

@@ -14,3 +14,12 @@ flatpickr.localize(Portuguese);
 import "flatpickr/dist/flatpickr.min.css";
 
 import 'choices.js/public/assets/styles/choices.min.css';
+
+import * as FilePond from 'filepond';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+
+FilePond.registerPlugin(FilePondPluginImagePreview);
+
+window.FilePond = FilePond; 
