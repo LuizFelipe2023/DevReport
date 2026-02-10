@@ -12,6 +12,24 @@
                         <p class="text-muted small">Preencha as informações abaixo para iniciar um novo projeto no seu painel.</p>
                     </div>
 
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger border-0 shadow-sm mb-4">
+                            <div class="fw-bold mb-2"><i class="bi bi-x-circle-fill me-2"></i> Ops! Verifique os erros abaixo:</div>
+                            <ul class="mb-0 small">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('projects.store') }}" method="POST">
                         @csrf
 
@@ -48,10 +66,9 @@
                                 <label for="status_id" class="form-label fw-semibold small text-uppercase text-muted">Status do Projeto</label>
                                 <select name="status_id" id="status_id" class="form-select bg-light @error('status_id') is-invalid @enderror" required>
                                     <option value="" selected disabled>Escolha um status...</option>
-                                    
                                     @foreach($statuses as $status)
                                         <option value="{{ $status->id }}" 
-                                            {{ (old('status_id') ?? ($project->status_id ?? '')) == $status->id ? 'selected' : '' }}>
+                                            {{ old('status_id') == $status->id ? 'selected' : '' }}>
                                             {{ $status->name }}
                                         </option>
                                     @endforeach
