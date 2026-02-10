@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             StatusSeeder::class,
-            ProjectSeeder::class,
-            VersioningSeeder::class
+            // ProjectSeeder::class,
+            // VersioningSeeder::class
         ]);
     }
 }
