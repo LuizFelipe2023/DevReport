@@ -24,7 +24,7 @@ class VersioningRequest extends FormRequest
             'project_id' => 'required|exists:projects,id',
             'version_number' => 'required|string|max:50',
             'changelog' => 'nullable|string',
-            'status' => 'required|in:development,completed,pending,archived,production',
+            'status_id' => 'required|exists:statuses,id',
             'release_date' => 'nullable|date',
             'users' => 'nullable|array',
             'users.*' => 'exists:users,id', 

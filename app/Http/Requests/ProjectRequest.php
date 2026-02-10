@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:development,production,archived',
+            'status_id' => 'required|exists:statuses,id',
             'github_url' => 'nullable|url'
         ];
     }

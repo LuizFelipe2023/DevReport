@@ -51,13 +51,19 @@
                             </div>
 
                             <div class="col-md-5 mb-4">
-                                <label for="status" class="form-label fw-semibold small text-uppercase text-muted">Status Atual</label>
-                                <select name="status" id="status" class="form-select bg-light fw-medium @error('status') is-invalid @enderror" required>
-                                    <option value="development" {{ old('status', $project->status) == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
-                                    <option value="completed" {{ old('status', $project->status) == 'completed' ? 'selected' : '' }}>Concluído</option>
-                                    <option value="archived" {{ old('status', $project->status) == 'archived' ? 'selected' : '' }}>Arquivado</option>
+                                <label for="status_id" class="form-label fw-semibold small text-uppercase text-muted">Status Atual</label>
+                                <select name="status_id" id="status_id" class="form-select bg-light fw-medium @error('status_id') is-invalid @enderror" required>
+                                    <option value="" disabled>Selecione o status...</option>
+                                    
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status->id }}" 
+                                            {{ (old('status_id', $project->status_id) == $status->id) ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('status')
+                                
+                                @error('status_id')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>

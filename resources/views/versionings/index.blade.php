@@ -39,18 +39,31 @@
             </div>
         </div>
 
-        <div class="mb-3 d-flex align-items-center gap-2">
-            <div>
-                <label for="userFilter" class="form-label fw-bold mb-0">Filtrar por Responsável</label>
-                <select id="userFilter" class="form-select" style="max-width: 300px;">
+        <div class="mb-4 d-flex align-items-center gap-3 bg-white p-3 rounded shadow-sm">
+            <div class="flex-grow-1" style="max-width: 250px;">
+                <label for="userFilter" class="form-label small fw-bold text-muted text-uppercase">Responsável</label>
+                <select id="userFilter" class="form-select form-select-sm">
                     <option value="">Todos</option>
                     @foreach($users as $user)
                         <option value="{{ $user->name }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
             </div>
+
+            <div class="flex-grow-1" style="max-width: 250px;">
+                <label for="statusFilter" class="form-label small fw-bold text-muted text-uppercase">Status</label>
+                <select id="statusFilter" class="form-select form-select-sm">
+                    <option value="">Todos</option>
+                    @foreach($statuses as $status)
+                        <option value="{{ $status->name }}">{{ $status->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="align-self-end">
-                <button id="resetFilter" class="btn btn-outline-secondary mt-1">Resetar Filtros</button>
+                <button id="resetFilter" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-counterclockwise"></i> Resetar
+                </button>
             </div>
         </div>
 
@@ -60,6 +73,7 @@
                     <thead>
                         <tr>
                             <th class="ps-4">Versão</th>
+                            <th>Status</th>
                             <th>Projeto</th>
                             <th>Responsáveis</th>
                             <th>Data</th>
@@ -72,6 +86,7 @@
                                 <td class="ps-4">
                                     <span class="badge bg-primary px-3 py-2">v{{ $v->version_number }}</span>
                                 </td>
+                                <td class="fw-semibold">{{ $v->status->nome }}</td>
                                 <td class="fw-semibold">{{ $v->project->name }}</td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-1">

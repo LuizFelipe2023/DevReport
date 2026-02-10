@@ -36,15 +36,21 @@
                                 </div>
 
                                 <div class="col-md-3 mb-4">
-                                    <label class="form-label">Status</label>
-                                    <select name="status" class="form-select @error('status') is-invalid @enderror"
-                                        required>
-                                        <option value="development" {{ old('status', $versioning->status) == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
-                                        <option value="pending" {{ old('status', $versioning->status) == 'pending' ? 'selected' : '' }}>Pendente</option>
-                                        <option value="completed" {{ old('status', $versioning->status) == 'completed' ? 'selected' : '' }}>Concluído</option>
-                                        <option value="production" {{ old('status', $versioning->status) == 'production' ? 'selected' : '' }}>Produção</option>
-                                        <option value="archived" {{ old('status', $versioning->status) == 'archived' ? 'selected' : '' }}>Arquivado</option>
+                                    <label for="status_id" class="form-label fw-semibold small text-uppercase text-muted">Status da Release</label>
+                                    <select name="status_id" id="status_id" class="form-select @error('status_id') is-invalid @enderror" required>
+                                        <option value="" disabled>Selecione...</option>
+                                        
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status->id }}" 
+                                                {{ old('status_id', $versioning->status_id) == $status->id ? 'selected' : '' }}>
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    
+                                    @error('status_id')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-4 mb-4">

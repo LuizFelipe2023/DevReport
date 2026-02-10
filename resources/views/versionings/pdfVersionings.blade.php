@@ -23,7 +23,6 @@
             color: #777;
         }
 
-      
         footer { 
             position: fixed; 
             bottom: -30px; 
@@ -36,18 +35,15 @@
             padding-top: 5px;
         }
 
-     
         .report-title { text-align: center; margin-bottom: 20px; }
         .report-title h1 { margin: 0; color: #1a2a3a; font-size: 20px; }
         
-       
         .project-header { 
             background-color: #f8f9fa; 
             padding: 8px 12px; 
             border-left: 4px solid #007bff;
             margin-top: 20px;
             margin-bottom: 10px;
-         
         }
         .project-name { font-size: 14px; font-weight: bold; color: #1a2a3a; }
 
@@ -56,7 +52,7 @@
             width: 100%; 
             border-collapse: collapse; 
             margin-bottom: 20px;
-            table-layout: fixed; /
+            table-layout: fixed;
         }
         
         th { 
@@ -75,16 +71,25 @@
             word-wrap: break-word; 
         }
 
+        /* Status Badges Dinâmicas */
         .badge {
-            padding: 2px 6px;
+            padding: 3px 7px;
             border-radius: 3px;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: bold;
             color: #fff;
+            display: inline-block;
+            text-transform: uppercase;
         }
-        .bg-stable { background-color: #28a745; }
-        .bg-beta { background-color: #fd7e14; }
-        .bg-dark { background-color: #6c757d; }
+
+        /* Mapeamento de Cores (Bootstrap Standard) */
+        .bg-primary   { background-color: #0d6efd; }
+        .bg-success   { background-color: #198754; }
+        .bg-warning   { background-color: #ffc107; color: #000; }
+        .bg-danger    { background-color: #dc3545; }
+        .bg-info      { background-color: #0dcaf0; color: #000; }
+        .bg-secondary { background-color: #6c757d; }
+        .bg-dark      { background-color: #212529; }
 
         .pagenum:before { content: counter(page); }
     </style>
@@ -93,7 +98,7 @@
 
 <header>
     <span style="float: left;">Relatório de Versões - {{ date('Y') }}</span>
-    <span style="float: right;">Sistema Interno</span>
+    <span style="float: right;">Sistema Interno de Controle</span>
 </header>
 
 <footer>
@@ -103,14 +108,14 @@
 <main>
     <div class="report-title">
         <h1>Logs de Versão por Projeto</h1>
-        <p style="color: #666;">Histórico consolidado de desenvolvimento</p>
+        <p style="color: #666;">Histórico consolidado de desenvolvimento e entregas</p>
     </div>
 
     @foreach($versioningsGrouped as $projectId => $versions)
         <div class="project-container">
             <div class="project-header">
                 <span class="project-name">{{ $versions->first()->project->name }}</span>
-                <small style="float: right; color: #777;">{{ $versions->count() }} versões</small>
+                <small style="float: right; color: #777;">{{ $versions->count() }} versões registradas</small>
             </div>
 
             <table>
@@ -118,8 +123,8 @@
                     <tr>
                         <th width="12%">Versão</th>
                         <th width="15%">Data</th>
-                        <th width="13%">Status</th>
-                        <th width="40%">Changelog</th>
+                        <th width="15%">Status</th>
+                        <th width="38%">Changelog</th>
                         <th width="20%">Equipe</th>
                     </tr>
                 </thead>
@@ -129,8 +134,9 @@
                             <td><strong>v{{ $version->version_number }}</strong></td>
                             <td>{{ \Carbon\Carbon::parse($version->release_date)->format('d/m/Y') }}</td>
                             <td>
-                                <span class="badge {{ $version->status == 'stable' ? 'bg-stable' : ($version->status == 'beta' ? 'bg-beta' : 'bg-dark') }}">
-                                    {{ strtoupper($version->status) }}
+                                {{-- Acessa o relacionamento status e usa o campo style para a cor --}}
+                                <span class="badge bg-{{ $version->status->style ?? 'secondary' }}">
+                                    {{ $version->status->name ?? 'Indefinido' }}
                                 </span>
                             </td>
                             <td>{{ $version->changelog }}</td>

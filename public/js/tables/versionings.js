@@ -20,6 +20,11 @@ $(document).ready(function() {
         table.column(2).search(user).draw();
     });
 
+    $('#statusFilter').on('change', function() {
+        var status = $(this).val();
+        table.column(1).search(status ? '^' + status + '$' : '', true, false).draw();
+    });
+
     $('#resetFilter').on('click', function() {
         $('#userFilter').val('');
         table.column(2).search('').draw();

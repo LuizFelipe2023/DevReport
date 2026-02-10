@@ -12,6 +12,20 @@
         </a>
     </div>
 
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-filter"></i></span>
+                <select id="statusFilter" class="form-select border-start-0 shadow-none fw-medium">
+                    <option value="">Todos os Status</option>
+                    @foreach($statuses as $status)
+                        <option value="{{ $status->name }}">{{ $status->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow-sm border-0">
         <div class="card-body p-3">
             <div class="table-responsive">
@@ -20,7 +34,7 @@
                         <tr>
                             <th class="ps-4">Nome do Projeto</th>
                             <th>Descrição</th>
-                            <th>Data de Criação</th>
+                            <th>Status</th> <th>Data de Criação</th>
                             <th class="text-center">Ações</th>
                         </tr>
                     </thead>
@@ -28,58 +42,32 @@
                         @foreach($projects as $project)
                         <tr>
                             <td class="ps-4">
-                                <span class="fw-bold">{{ $project->name }}</span>
+                                <span class="fw-bold text-primary">{{ $project->name }}</span>
                             </td>
-                            <td>{{ Str::limit($project->description, 50) }}</td>
+                            <td>{{ Str::limit($project->description, 40) }}</td>
+                            <td>
+                                <span class="badge rounded-pill bg-{{ $project->status->style ?? 'secondary' }}">
+                                    {{ $project->status->name }}
+                                </span>
+                            </td>
                             <td>{{ $project->created_at->format('d/m/Y') }}</td>
                             <td class="text-center">
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                         Ações
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
+                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                        <li><a class="dropdown-item" href="{{ route('projects.show', $project) }}"><i class="bi bi-eye me-2"></i>Visualizar</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('projects.edit', $project) }}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                                        <li><hr class="dropdown-divider"></li>
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('projects.show', $project) }}">
-                                                <i class="bi bi-eye me-2"></i> Visualizar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('projects.edit', $project) }}">
-                                                <i class="bi bi-pencil me-2"></i> Editar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="dropdown-item text-danger"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal{{ $project->id }}">
-                                                <i class="bi bi-trash me-2"></i> Excluir
+                                            <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $project->id }}">
+                                                <i class="bi bi-trash me-2"></i>Excluir
                                             </button>
                                         </li>
                                     </ul>
                                 </div>
                             </td>
-
-                        
-                            <div class="modal fade" id="deleteModal{{ $project->id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content border-0 shadow">
-                                        <div class="modal-header bg-danger text-white">
-                                            <h5 class="modal-title fw-bold">Confirmação de Exclusão</h5>
-                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tem certeza que deseja excluir o projeto "{{ $project->name }}"?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('projects.destroy', $project) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Excluir</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </tr>
                         @endforeach
                     </tbody>
@@ -88,9 +76,9 @@
         </div>
     </div>
 </div>
+
 <link rel="stylesheet" href="{{ asset('css/dataTables.dataTables.min.css') }}">
 <script src="{{ asset('js/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/datatables/dataTables.min.js') }}"></script>
 <script src="{{ asset('js/tables/projects.js') }}"></script>
 @endsection
-

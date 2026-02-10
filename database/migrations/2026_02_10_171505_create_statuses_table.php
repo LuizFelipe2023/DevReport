@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('versionings', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained('projects', 'id')->cascadeOnDelete();
-            $table->string('version_number');
-            $table->text('changelog')->nullable();
-            $table->date('release_date')->nullable();
-            $table->unique(['project_id', 'version_number']);
+            $table->string('name',255);
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('versionings');
+        Schema::dropIfExists('statuses');
     }
 };

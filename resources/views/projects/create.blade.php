@@ -45,14 +45,19 @@
                             </div>
 
                             <div class="col-md-6 mb-4">
-                                <label for="status" class="form-label fw-semibold small text-uppercase">Status Inicial</label>
-                                <select name="status" id="status" class="form-select bg-light @error('status') is-invalid @enderror" required>
+                                <label for="status_id" class="form-label fw-semibold small text-uppercase text-muted">Status do Projeto</label>
+                                <select name="status_id" id="status_id" class="form-select bg-light @error('status_id') is-invalid @enderror" required>
                                     <option value="" selected disabled>Escolha um status...</option>
-                                    <option value="development" {{ old('status') == 'development' ? 'selected' : '' }}>Desenvolvimento</option>
-                                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Concluído</option>
-                                    <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Arquivado</option>
+                                    
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status->id }}" 
+                                            {{ (old('status_id') ?? ($project->status_id ?? '')) == $status->id ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('status')
+                                
+                                @error('status_id')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>

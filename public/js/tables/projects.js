@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#projectsTable').DataTable({
+    let table = $('#projectsTable').DataTable({
         language: {
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros",
@@ -12,6 +12,11 @@ $(document).ready(function () {
             },
             zeroRecords: "Nenhum registro encontrado",
         },
-        order: [[2, 'desc']]
+        order: [[0, 'asc']] 
+    });
+
+    $('#statusFilter').on('change', function () {
+        var status = $(this).val();
+        table.column(2).search(status ? '^' + status + '$' : '', true, false).draw();
     });
 });

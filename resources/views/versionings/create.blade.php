@@ -35,15 +35,18 @@
                                 </div>
 
                                 <div class="col-md-3 mb-4">
-                                    <label class="form-label">Status</label>
-                                    <select name="status" class="form-select @error('status') is-invalid @enderror"
-                                        required>
-                                        <option value="development">Desenvolvimento</option>
-                                        <option value="pending">Pendente</option>
-                                        <option value="completed">Finalizado</option>
-                                        <option value="production">Produção</option>
-                                        <option value="archived">Arquivado</option>
+                                    <label class="form-label fw-semibold small text-uppercase text-muted">Status da Release</label>
+                                    <select name="status_id" class="form-select @error('status_id') is-invalid @enderror" required>
+                                        <option value="" selected disabled>Selecione...</option>
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @error('status_id')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-4 mb-4">

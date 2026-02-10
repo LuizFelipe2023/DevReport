@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Versioning extends Model
 {
-      protected $fillable = ['project_id', 'version_number', 'changelog', 'status', 'release_date'];
+      protected $fillable = ['project_id', 'version_number', 'changelog', 'status_id', 'release_date'];
 
       public function project()
       {
@@ -17,5 +17,10 @@ class Versioning extends Model
       {
             return $this->belongsToMany(User::class, 'user_versioning');
       }
+
+       public function status()
+       {
+              return $this->belongsTo(Status::class,'status_id');
+       }
 
 }

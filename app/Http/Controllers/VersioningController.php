@@ -8,9 +8,14 @@ use App\Models\Versioning;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Status;
 
 class VersioningController extends Controller
 {
+       private function getAllStatuses()
+       {
+              return Status::orderBy('name')->get();
+       }
 
        private function getAllUsers()
        {
@@ -23,9 +28,10 @@ class VersioningController extends Controller
 
        public function index()
        {
+              $statuses = $this->getAllStatuses();
               $versionings = Versioning::with('project')->get();
               $users = $this->getAllUsers();
-              return view('versionings.index', compact('versionings', 'users'));
+              return view('versionings.index', compact('versionings', 'users','statuses'));
        }
 
        public function show(Versioning $versioning)
@@ -37,7 +43,8 @@ class VersioningController extends Controller
        {
               $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.create', compact('projects', 'users'));
+              $statuses = $this->getAllStatuses();
+              return view('versionings.create', compact('projects', 'users','statuses'));
        }
 
        public function store(VersioningRequest $request)
@@ -56,7 +63,8 @@ class VersioningController extends Controller
        {
               $users = $this->getAllUsers();
               $projects = $this->getAllProjects();
-              return view('versionings.edit', compact('versioning', 'projects', 'users'));
+              $statuses = $this->getAllStatuses();
+              return view('versionings.edit', compact('versioning', 'projects', 'users','statuses'));
        }
 
        public function update(VersioningRequest $request, Versioning $versioning)
@@ -80,7 +88,7 @@ class VersioningController extends Controller
 
        public function generatePdf()
        {
-              $versioningsGrouped = Versioning::with(['project', 'users'])
+              $versioningsGrouped = Versioning::with(['project', 'users','status'])
                      ->get()
                      ->groupBy('project_id');
 
