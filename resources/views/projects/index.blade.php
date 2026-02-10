@@ -2,6 +2,26 @@
 
 @section('content')
 <div class="container py-5 mt-5">
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                <div>{{ session('success') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-close="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                <div>{{ session('error') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-close="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold text-dark">Gerenciamento de Projetos</h2>
@@ -34,7 +54,8 @@
                         <tr>
                             <th class="ps-4">Nome do Projeto</th>
                             <th>Descrição</th>
-                            <th>Status</th> <th>Data de Criação</th>
+                            <th>Status</th> 
+                            <th>Data de Criação</th>
                             <th class="text-center">Ações</th>
                         </tr>
                     </thead>
@@ -47,7 +68,7 @@
                             <td>{{ Str::limit($project->description, 40) }}</td>
                             <td>
                                 <span class="badge rounded-pill bg-{{ $project->status->style ?? 'secondary' }}">
-                                    {{ $project->status->name }}
+                                    {{ $project->status->name ?? 'Sem Status' }}
                                 </span>
                             </td>
                             <td>{{ $project->created_at->format('d/m/Y') }}</td>
@@ -68,9 +89,13 @@
                                         
                                         <li><hr class="dropdown-divider"></li>
                                         <li>
-                                            <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $project->id }}">
-                                                <i class="bi bi-trash me-2"></i>Excluir
-                                            </button>
+                                            <form action="{{ route('projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este projeto?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item text-danger">
+                                                    <i class="bi bi-trash me-2"></i>Excluir
+                                                </button>
+                                            </form>
                                         </li>
                                     </ul>
                                 </div>
