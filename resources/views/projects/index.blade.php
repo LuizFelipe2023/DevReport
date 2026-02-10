@@ -9,7 +9,7 @@
                 <i class="bi bi-check-circle-fill me-2 fs-5"></i>
                 <div>{{ session('success') }}</div>
             </div>
-            <button type="button" class="btn-close" data-bs-close="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -19,7 +19,7 @@
                 <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
                 <div>{{ session('error') }}</div>
             </div>
-            <button type="button" class="btn-close" data-bs-close="alert" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <div class="d-flex justify-content-between align-items-center mb-4">
