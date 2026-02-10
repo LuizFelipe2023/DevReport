@@ -7,6 +7,37 @@
             <div class="card border-0 shadow-sm rounded-3">
                 
                 <div class="card-body p-4 p-md-5">
+
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                                <div>{{ session('success') }}</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                                <div>{{ session('error') }}</div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger border-0 shadow-sm mb-4">
+                            <div class="fw-bold mb-2"><i class="bi bi-x-circle-fill me-2"></i> Por favor, corrija os erros abaixo:</div>
+                            <ul class="mb-0 small">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div>
                             <h3 class="fw-bold text-dark mb-1">Editar Projeto</h3>
@@ -54,7 +85,6 @@
                                 <label for="status_id" class="form-label fw-semibold small text-uppercase text-muted">Status Atual</label>
                                 <select name="status_id" id="status_id" class="form-select bg-light fw-medium @error('status_id') is-invalid @enderror" required>
                                     <option value="" disabled>Selecione o status...</option>
-                                    
                                     @foreach($statuses as $status)
                                         <option value="{{ $status->id }}" 
                                             {{ (old('status_id', $project->status_id) == $status->id) ? 'selected' : '' }}>
