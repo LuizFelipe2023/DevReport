@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var table = $('#versioningsTable').DataTable({
         language: {
             search: "Buscar:",
@@ -15,18 +15,19 @@ $(document).ready(function() {
         order: [[0, 'asc']]
     });
 
-    $('#userFilter').on('change', function() {
+    $('#userFilter').on('change', function () {
         var user = $(this).val();
         table.column(3).search(user).draw();
     });
 
-    $('#statusFilter').on('change', function() {
+    $('#statusFilter').on('change', function () {
         var status = $(this).val();
         table.column(1).search(status ? '^' + status + '$' : '', true, false).draw();
     });
 
-    $('#resetFilter').on('click', function() {
-        $('#userFilter').val('');
-        table.column(2).search('').draw();
+    $('#resetFilter').on('click', function () {
+        $('#userFilter, #statusFilter').val('');
+        table.columns().search('').draw();
+        table.search('').draw();
     });
 });
