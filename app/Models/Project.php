@@ -13,4 +13,9 @@ class Project extends Model
               return $this->belongsTo(Status::class,'status_id');
        }
 
+       public function versionings()
+       {
+              return $this->hasMany(Versioning::class);
+       }
+
 }

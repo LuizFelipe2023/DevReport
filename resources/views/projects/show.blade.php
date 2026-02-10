@@ -53,32 +53,38 @@
                     <div class="card border-0 shadow-sm rounded-3">
                         <div class="card-body p-4">
                             <div class="mb-4">
-                                <label class="small fw-bold text-muted text-uppercase d-block mb-2">Status</label>
+                                <label class="small fw-bold text-muted text-uppercase d-block mb-2">Status do Projeto</label>
+                                
                                 @php
-                                    $statusColors = [
-                                        'development' => 'bg-primary',
-                                        'completed' => 'bg-success',
-                                        'archived' => 'bg-secondary'
-                                    ];
-                                    $color = $statusColors[$project->status] ?? 'bg-dark';
+                                    // Pega o estilo do banco (ex: success, warning) ou define secondary como padrão
+                                    $style = $project->status->style ?? 'secondary';
                                 @endphp
-                                <span class="badge {{ $color }} bg-opacity-10 {{ str_replace('bg-', 'text-', $color) }} w-100 py-2 fs-6 border border-opacity-25 border-{{ str_replace('bg-', '', $color) }}">
-                                    {{ ucfirst($project->status) }}
+
+                                <span class="badge bg-{{ $style }} bg-opacity-10 text-{{ $style }} w-100 py-2 fs-6 border border-opacity-25 border-{{ $style }}">
+                                    <i class="bi bi-circle-fill me-2 small" style="font-size: 0.5rem; vertical-align: middle;"></i>
+                                    {{ $project->status->name ?? 'Indefinido' }}
                                 </span>
                             </div>
 
                             <div class="mb-4">
                                 <label class="small fw-bold text-muted text-uppercase d-block mb-1">Data de Criação</label>
                                 <div class="text-dark fw-medium">
-                                    <i class="bi bi-calendar3 me-2 text-muted"></i>{{ $project->created_at->format('d \d\e F, Y') }}
+                                    <i class="bi bi-calendar3 me-2 text-muted"></i>{{ $project->created_at->format('d/m/Y') }}
                                 </div>
                             </div>
 
-                            <div class="mb-0">
+                            <div class="mb-4">
                                 <label class="small fw-bold text-muted text-uppercase d-block mb-1">Última Atualização</label>
                                 <div class="text-dark fw-medium">
                                     <i class="bi bi-clock-history me-2 text-muted"></i>{{ $project->updated_at->diffForHumans() }}
                                 </div>
+                            </div>
+
+                            <hr class="my-4 text-muted opacity-25">
+                            <div class="d-grid">
+                                <a href="{{ route('projects.pdf_individual', $project->id) }}" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-file-earmark-pdf me-1"></i> Gerar Relatório de Logs
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,12 @@ Route::get('/', function () {
     return Auth::check() ? redirect()->route('versionings.index') : redirect()->route('login');
 });
 
-Route::resource('projects', ProjectController::class)->middleware(['auth']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('projects/{project}/pdf', [ProjectController::class, 'generatePdfVersioningsPerProject'])
+        ->name('projects.pdf_individual');
+
+    Route::resource('projects', ProjectController::class);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('versionings/pdf', [VersioningController::class, 'generatePdf'])->name('versionings.pdf');

@@ -59,6 +59,13 @@
                                     <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                         <li><a class="dropdown-item" href="{{ route('projects.show', $project) }}"><i class="bi bi-eye me-2"></i>Visualizar</a></li>
                                         <li><a class="dropdown-item" href="{{ route('projects.edit', $project) }}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                                        
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="{{ route('projects.pdf_individual', $project->id) }}">
+                                                <i class="bi bi-file-earmark-pdf me-2"></i>Gerar PDF de Logs
+                                            </a>
+                                        </li>
+                                        
                                         <li><hr class="dropdown-divider"></li>
                                         <li>
                                             <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $project->id }}">

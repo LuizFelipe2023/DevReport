@@ -30,16 +30,11 @@
                         <div class="col-md-3 mb-4">
                             <label class="form-label fw-bold">Status</label>
                             <div class="form-control bg-light border-0 py-2 shadow-sm d-flex align-items-center">
-                                @php
-                                    $statusColor = [
-                                        'production' => 'bg-success',
-                                        'completed' => 'bg-primary',
-                                        'development' => 'bg-warning text-dark',
-                                        'pending' => 'bg-info text-dark',
-                                        'archived' => 'bg-danger'
-                                    ][$versioning->status] ?? 'bg-secondary';
-                                @endphp
-                                <span class="badge {{ $statusColor }} w-100 py-1">{{ ucfirst($versioning->status) }}</span>
+                                {{-- Lógica Dinâmica baseada no relacionamento --}}
+                                @php $style = $versioning->status->style ?? 'secondary'; @endphp
+                                <span class="badge bg-{{ $style }} w-100 py-1">
+                                    {{ $versioning->status->name ?? 'Indefinido' }}
+                                </span>
                             </div>
                         </div>
 
@@ -47,7 +42,7 @@
                             <label class="form-label fw-bold">Data de Lançamento</label>
                             <div class="form-control bg-light border-0 py-2 shadow-sm">
                                 <i class="bi bi-calendar3 text-muted me-2"></i>
-                                {{ $versioning->release_date ? Carbon\Carbon::parse($versioning->release_date)->format('d/m/Y') : "Não definida" }}
+                                {{ $versioning->release_date ? \Carbon\Carbon::parse($versioning->release_date)->format('d/m/Y') : "Não definida" }}
                             </div>
                         </div>
 
