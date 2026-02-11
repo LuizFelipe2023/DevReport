@@ -6,6 +6,8 @@ window.bootstrap = bootstrap;
 import Choices from 'choices.js';
 window.Choices = Choices;
 
+import 'choices.js/public/assets/styles/choices.min.css';
+
 import flatpickr from "flatpickr";
 window.flatpickr = flatpickr; 
 import { Portuguese } from "flatpickr/dist/l10n/pt.js";
