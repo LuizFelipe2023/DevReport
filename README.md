@@ -51,7 +51,3 @@ php artisan serve
 DB_CONNECTION=sqlite
 DB_DATABASE=/caminho/database.sqlite
 ```
-
----
-
-Se quiser, posso deixar ainda mais “bonito de GitHub” com badges e título estilizado.
